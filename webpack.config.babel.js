@@ -24,6 +24,13 @@ const commonConfig = {
     path: PATHS.build,
   },
   module: {
+    preLoaders: [
+      {
+        test: /\.jsx?$/,
+        loader: 'eslint',
+        exclude: [/node_modules/],
+      },
+    ],
     loaders: [
       {
         test: /\.jsx?$/,
