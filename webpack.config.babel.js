@@ -2,8 +2,10 @@
 import path from 'path';
 import webpack from 'webpack';
 import merge from 'webpack-merge';
+import validate from 'webpack-validator';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
 import htmlWebpackTemplate from 'html-webpack-template';
+import CleanWebpackPlugin from 'clean-webpack-plugin';
 
 const TARGET = process.env.npm_lifecycle_event;
 const ENABLE_POLLING = process.env.ENABLE_POLLING;
@@ -35,7 +37,9 @@ const commonConfig = {
       {
         test: /\.jsx?$/,
         loader: 'babel',
-        query: 'cacheDirectory',
+        query: {
+          cacheDirectory: true,
+        },
         exclude: [/node_modules/],
       },
     ],
@@ -54,6 +58,9 @@ const commonConfig = {
 };
 
 const prodConfig = {
+  entry: {
+    vendor: ['react', 'react-dom'],
+  },
   devtool: 'source-map',
   output: {
     path: PATHS.build,
@@ -61,8 +68,20 @@ const prodConfig = {
     chunkFilename: '[chunkhash].js',
   },
   plugins: [
+    new CleanWebpackPlugin([PATHS.build], {
+      root: process.cwd(),
+    }),
     new webpack.DefinePlugin({
       'process.env.NODE_ENV': 'production',
+    }),
+    new webpack.optimize.CommonsChunkPlugin({
+      names: ['vendor', 'manifest'],
+      minChunks: Infinity,
+    }),
+    new webpack.optimize.UglifyJsPlugin({
+      compress: {
+        warnings: false,
+      },
     }),
   ],
 };
@@ -101,4 +120,6 @@ switch (TARGET) {
     config = merge(commonConfig, devConfig);
 }
 
-export default config;
+export default validate(config, {
+  quiet: true,
+});
