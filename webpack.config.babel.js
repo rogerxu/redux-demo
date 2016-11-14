@@ -59,7 +59,10 @@ const commonConfig = {
 
 const prodConfig = {
   entry: {
-    vendor: ['react', 'react-dom'],
+    vendor: [
+      'react', 'react-dom', 'react-redux',
+      'redux', 'redux-actions', 'redux-immutable',
+    ],
   },
   devtool: 'source-map',
   output: {
