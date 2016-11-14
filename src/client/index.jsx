@@ -4,14 +4,11 @@ import React from 'react';
 import { render } from 'react-dom';
 import { Provider } from 'react-redux';
 import { createStore } from 'redux';
-import { combineReducers } from 'redux-immutable';
 
 import App from './components/App';
-import counter from './reducers/counter';
+import reducer from './reducers';
 
-const store = createStore(combineReducers({
-  count: counter,
-}));
+const store = createStore(reducer);
 
 render(
   <Provider store={store}>

@@ -1,9 +1,11 @@
 import React from 'react';
-import InfoMessage from '../containers/InfoMessage';
+import AddTodo from '../containers/AddTodo';
+import VisibleTodoList from '../containers/VisibleTodoList';
 
 const App = () => (
   <div>
-    <InfoMessage />
+    <AddTodo />
+    <VisibleTodoList />
   </div>
 );
 
