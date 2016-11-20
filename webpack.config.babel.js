@@ -6,12 +6,13 @@ import validate from 'webpack-validator';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
 import htmlWebpackTemplate from 'html-webpack-template';
 import CleanWebpackPlugin from 'clean-webpack-plugin';
+import OpenBrowserPlugin from 'open-browser-webpack-plugin';
 
 const TARGET = process.env.npm_lifecycle_event;
 const ENABLE_POLLING = process.env.ENABLE_POLLING;
 
 const PATHS = {
-  app: './src/client',
+  app: path.resolve(__dirname, './src/client'),
   build: path.join(__dirname, 'build'),
 };
 
@@ -22,8 +23,8 @@ const commonConfig = {
     app: PATHS.app,
   },
   output: {
-    filename: '[name].js',
     path: PATHS.build,
+    filename: '[name].js',
   },
   module: {
     preLoaders: [
@@ -57,6 +58,26 @@ const commonConfig = {
   ],
 };
 
+const devConfig = {
+  devtool: 'eval-source-map',
+  devServer: {
+    historyApiFallback: true,
+    hot: true,
+    inline: true,
+    stats: 'errors-only',
+    host: 'localhost',
+    port: 8080,
+  },
+  plugins: [
+    new webpack.HotModuleReplacementPlugin({
+      multiStep: true,
+    }),
+    new OpenBrowserPlugin({
+      url: 'http://localhost:8080',
+    }),
+  ],
+};
+
 const prodConfig = {
   entry: {
     vendor: [
@@ -85,23 +106,6 @@ const prodConfig = {
       compress: {
         warnings: false,
       },
-    }),
-  ],
-};
-
-const devConfig = {
-  devtool: 'eval-source-map',
-  devServer: {
-    historyApiFallback: true,
-    hot: true,
-    inline: true,
-    stats: 'errors-only',
-    host: 'localhost',
-    port: 8080,
-  },
-  plugins: [
-    new webpack.HotModuleReplacementPlugin({
-      multiStep: true,
     }),
   ],
 };
