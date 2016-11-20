@@ -1,11 +1,12 @@
 import React, { PropTypes } from 'react';
+import ProductItem from './ProductItem';
 
 const ProductList = ({ title, items }) => (
   <div>
     <h3>{title}</h3>
     <ul>
       {items.map(item => (
-        <li>{item.name}</li>
+        <ProductItem key={item.id} item={item} />
       ))}
     </ul>
   </div>
