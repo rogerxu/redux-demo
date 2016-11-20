@@ -1,6 +1,17 @@
 import { RECEIVE_PRODUCTS } from '../constants/ActionTypes';
 
-const products = (state = [], action) => {
+const initialState = [
+  {
+    id: 1,
+    name: 'React',
+  },
+  {
+    id: 2,
+    name: 'Redux',
+  },
+];
+
+const products = (state = initialState, action) => {
   switch (action.type) {
     case RECEIVE_PRODUCTS:
       return state;
