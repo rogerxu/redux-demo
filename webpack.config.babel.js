@@ -78,12 +78,14 @@ const devConfig = {
   ],
 };
 
+const vendorList = [
+  ...['react', 'react-dom', 'react-redux'],
+  ...['redex', 'redux-actions', 'redux-immutable', 'redux-logger', 'redux-thunk'],
+];
+
 const prodConfig = {
   entry: {
-    vendor: [
-      'react', 'react-dom', 'react-redux',
-      'redux', 'redux-actions', 'redux-immutable',
-    ],
+    vendor: vendorList,
   },
   devtool: 'source-map',
   output: {
