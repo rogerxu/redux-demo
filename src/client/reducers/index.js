@@ -1,8 +1,8 @@
 import { combineReducers } from 'redux-immutable';
-import todos from './todos';
+import products from './products';
 
-const reducer = combineReducers({
-  todos,
+const rootReducer = combineReducers({
+  products,
 });
 
-export default reducer;
+export default rootReducer;

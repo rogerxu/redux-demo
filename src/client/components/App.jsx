@@ -1,11 +1,10 @@
 import React from 'react';
-import AddTodo from '../containers/AddTodo';
-import VisibleTodoList from '../containers/VisibleTodoList';
+import ProductsContainer from '../containers/ProductsContainer';
 
 const App = () => (
   <div>
-    <AddTodo />
-    <VisibleTodoList />
+    <h2>Shopping Cart Example</h2>
+    <ProductsContainer />
   </div>
 );
 
